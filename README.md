@@ -8,6 +8,7 @@ start - Alive Or Not🍩🍩🍩
 restart - Restart The Bot
 clear - Clear The Queue
 re - Alliance of restart
+rename - reply to a file and start working
 set - Set The Custom Caption Format
 ```
 # About Custom Caption
