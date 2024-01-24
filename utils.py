@@ -78,10 +78,11 @@ async def upload_file(file: str, msg: Message, edit: Message):
   """
   Uploading Files
   """
+  name = file.split('/')[-1]
   if msg.from_user.id in captom:
-     cap = captom[msg.from_user.id]
+     cap = captom[msg.from_user.id].format(name)
   else:
-     cap = f"**〶** `{file.split('/')[-1]}`\n\n{Config.DF_CAP}"
+     cap = f"**〶** `{name}`\n\n{Config.DF_CAP}"
   thum = f"./downloads/thumb/{msg.from_user.id}.jpeg" if os.path.exists(f"./downloads/thumb/{msg.from_user.id}.jpeg") else "./downloads/thumb/df.jpeg"
   await slp(1)
   try:
