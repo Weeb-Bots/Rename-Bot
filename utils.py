@@ -1,5 +1,4 @@
 import math
-import anitopy
 import os
 import re
 import time
@@ -118,9 +117,9 @@ async def process_file(m: Message, new_name: str):
   dl = await m.download(file_name=new_name, progress=progress, progress_args=(msg, "𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙸𝙽𝙶 𝚃𝙾 𝚂𝙴𝚁𝚅𝙴𝚁", "📥 Downloaded"))
   await msg.edit_text(f"**Downloading Completed** \n\n**Location:** `{dl}`")
   await slp(2)
-  await msg.edit_text("```Now 📝Renaming The File\n```")
+  await msg.edit_text("`Now 📝Renaming The File`")
   await slp(2)
-  await msg.edit_text("```Now 📤Uploading The File\n```")
+  await msg.edit_text("`Now 📤Uploading The File\`")
   await upload_file(new_name, msg=m, edit=msg)
   await msg.delete()
   try:
