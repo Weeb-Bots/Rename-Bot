@@ -1,5 +1,5 @@
 {
-  "name": "your-telegram-bot-app",
+  "name": "ReName-Fast_Bot",
   "description": "Your Telegram bot's description",
   "keywords": ["telegram", "bot"],
   "addons": [],
@@ -26,7 +26,8 @@
     "worker": {
       "quantity": 1,
       "size": "free"
-    }
+    },
+  "stack": "heroku-20"
   },
   "scripts": {
     "worker": "python main.py"
