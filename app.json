@@ -1,31 +1,41 @@
 {
-  "name": "ReName-Fast_Bot",
-  "description": "Your Telegram bot's description",
-  "keywords": ["telegram", "bot"],
-  "buildpacks": [
-    {
-      "url": "heroku/python"
-    }
-  ],
-  "env": {
-    "API_ID": {
-      "description": "Your Telegram API ID",
-      "required": true
+    "name": "Renamer BOT",
+    "description": "A bot.",
+    "keywords": [
+        "telegram",
+        "Renamer",
+        "Bot"
+    ],
+    "repository": "https://github.com/Weeb-Bots/ReName-Bot/",
+    "success_url": "https://telegram.me/Kai8_4",
+    "env": {
+        "BOT_TOKEN": {
+            "description": "Get it by creating a Telegram bot on BotFather",
+            "value": "",
+            "required": true
+        },
+        "API_ID": {
+            "description": "Get it from my.telegram.org",
+            "value": "",
+            "required": true
+        },
+        "API_HASH": {
+            "description": "Get it from my.telegram.org",
+            "value": "",
+            "required": true
+        }
     },
-    "API_HASH": {
-      "description": "Your Telegram API hash",
-      "required": true
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ],
+    "addons": [],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
     },
-    "BOT_TOKEN": {
-      "description": "Your Telegram bot token",
-      "required": true
-    }
-  },
-  "formation": {
-    "worker": {
-      "quantity": 1,
-      "size": "free"
-    },
-  },
-  "stack": "heroku-20"
+    "stack": "heroku-20"
 }
