@@ -17,6 +17,9 @@ You Can Add `{name}` in the caption and here is a ex:
 /set **〶** `{name}` \n\n**⌬ Uploaded By @Anime_Pile**
 ```
 
+# Deploy
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https://github.com/Weeb-Bots/ReName-Bot)
+
 # Updates
 - [ ] Currently All The Files Will Be Uploaded As Document so Have To Add more Formats
 - [ ] Simply The utils.py file becaz i dont even understand it
