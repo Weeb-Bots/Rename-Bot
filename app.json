@@ -1,0 +1,34 @@
+{
+  "name": "your-telegram-bot-app",
+  "description": "Your Telegram bot's description",
+  "keywords": ["telegram", "bot"],
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "env": {
+    "API_ID": {
+      "description": "Your Telegram API ID",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Your Telegram API hash",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "Your Telegram bot token",
+      "required": true
+    }
+  },
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "scripts": {
+    "worker": "python main.py"
+  }
+}
