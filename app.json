@@ -2,7 +2,6 @@
   "name": "ReName-Fast_Bot",
   "description": "Your Telegram bot's description",
   "keywords": ["telegram", "bot"],
-  "addons": [],
   "buildpacks": [
     {
       "url": "heroku/python"
