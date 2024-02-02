@@ -79,7 +79,7 @@ async def reanamer(_, msg: Message):
 async def setting(_, m: Message):
     text = m.text
     if not " " in text:
-        return await m.reply_text("**Sending Format:-**\n```/set Hello \/n\/n**⌬ Uploaded By @Anime_Pile**\n\n```", quote=True)
+        return await m.reply_text("**Sending Format:-**\n```\n/set Hello \\n\\n**⌬ Uploaded By @Anime_Pile**\n\n```", quote=True)
     text = text.split(" ", 1)[-1]
     captom[m.from_user.id] = text
 
