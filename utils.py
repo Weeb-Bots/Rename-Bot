@@ -44,7 +44,8 @@ async def progress_for_pyrogram(
   msg: Message,
   start
 ):
-    diff = time.time() - start
+  diff = time.time() - start
+  if round(diff % 04.00) == 0 or current == total
     percentage = current * 100 / total
     speed = current / diff
     estimated_total_time = get_readable_time((total - current) / speed)
