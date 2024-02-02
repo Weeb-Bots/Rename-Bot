@@ -98,5 +98,9 @@ async def restart_cmd(_, m: Message):
   await m.reply_text("Restarting Bot")
   quit(1)
 
+try:
+  uvloop.install()
+except:
+  pass
 print("<-- Bot Started Working -->")
 app.run()
