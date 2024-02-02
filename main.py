@@ -2,6 +2,7 @@ import os
 import time
 import wget
 import uvloop
+import asyncio
 
 from utils import *
 from config import Config
@@ -67,8 +68,9 @@ async def reanamer(_, msg: Message):
         return await msg.reply("Provide a Proper File To Rename", quote=True)
     # type = str(reply_to.media).split('.')[-1].lower() # Later Verion 
     _dl = os.path.join( "./downloads", new_name)
-    
-    await process_file(reply_to, _dl)
+
+    asyncio.create_task(process_file(reply_to, _dl))
+    #await process_file(reply_to, _dl)
     
 
 
