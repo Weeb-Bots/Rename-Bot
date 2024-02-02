@@ -44,8 +44,7 @@ async def progress_for_pyrogram(
   msg: Message,
   start
 ):
-  diff = time.time() - start
-  if round(diff % 10.00) == 0 or current == total:
+    diff = time.time() - start
     percentage = current * 100 / total
     speed = current / diff
     estimated_total_time = get_readable_time((total - current) / speed)
@@ -64,6 +63,7 @@ async def progress_for_pyrogram(
     )
     try:
       await msg.edit_text(f"{ud_type}\n{tmp}")
+      await slp(2)
     except:
       pass
 
@@ -118,9 +118,9 @@ async def process_file(m: Message, new_name: str):
       progress_args=("Dᴏᴡɴʟᴏᴀᴅɪɴɢ ᴛᴏ sᴇʀᴠᴇʀ", msg, c_time))
   await msg.edit_text(f"**Downloading Completed** \n\n**Location:** `{dl}`")
   await slp(2)
-  await msg.edit_text("`Now 📝Renaming The File`")
+  await msg.edit_text("`Now 📝Renaming The File.`")
   await slp(2)
-  await msg.edit_text("`Now 📤Uploading The File\`")
+  await msg.edit_text("`Now 📤Uploading The File.`")
   await upload_file(new_name, msg=m, edit=msg)
   await msg.delete()
   try:
