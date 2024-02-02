@@ -63,7 +63,6 @@ async def progress_for_pyrogram(
     )
     try:
       await msg.edit_text(f"{ud_type}\n{tmp}")
-      await slp(2)
     except:
       pass
 
