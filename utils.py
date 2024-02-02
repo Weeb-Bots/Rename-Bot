@@ -23,7 +23,7 @@ def get_readable_time(seconds):
             seconds %= value
             time_parts.append(f"{count} {unit}{'s' if count != 1 else ''}")
 
-    return ', '.join(time_parts) or '0 seconds'
+    return ', '.join(time_parts) or '0s'
 
 
 def hbs(size):
@@ -48,23 +48,19 @@ async def progress_for_pyrogram(
   if round(diff % 10.00) == 0 or current == total:
     percentage = current * 100 / total
     speed = current / diff
-    elapsed_time = round(diff) * 1000
-    time_to_completion = round((total - current) / speed) * 1000
-    estimated_total_time = elapsed_time + time_to_completion
+    estimated_total_time = get_readable_time((total - current) / speed)
 
-    elapsed_time = get_readable_time(elapsed_time)
-    estimated_total_time = get_readable_time(estimated_total_time)
-
+    sr = math.floor(percentage / 10)
     progress = "[{0}{1}] \n**Percentage:** {2}%\n".format(
-      ''.join(["▣" for i in range(math.floor(percentage / 10))]),
-      ''.join(["□" for i in range(10 - math.floor(percentage / 10))]),
+      ''.join(["▣" for i in range(sr)]),
+      ''.join(["□" for i in range(10 - sr)]),
       round(percentage, 2))
 
-    tmp = progress + "**• Completed :** {0}\n➖➖➖➖➖➖➖➖➖➖➖➖➖\n**• Size :** {1}\n➖➖➖➖➖➖➖➖➖➖➖➖➖\n**• Speed :** {2}/s\n➖➖➖➖➖➖➖➖➖➖➖➖➖\n**• ETA :** {3}\n".format(
+    tmp = progress + "**• Completed :** {0}\n\n**• Size :** {1}\n\n**• Speed :** {2}/s\n\n**• ETA :** {3}\n".format(
       hbs(current),
       hbs(total),
       hbs(speed),
-      estimated_total_time if estimated_total_time != '' else "0 s"
+      estimated_total_time
     )
     try:
       await msg.edit_text(f"{ud_type}\n{tmp}")
@@ -109,12 +105,17 @@ async def progress(current, total, msg, name, wh):
   text = f"**{name}**\n\n**{wh}:** {ct}\n\n**♻️ Progress:** `{percent}%`\n\n**📀 Total:** `{tot}`"
   try:
      await msg.edit_text(text)
+     await slp(2)
   except:
      pass
 
 async def process_file(m: Message, new_name: str):
   msg = await m.reply_text("`Now 📥Downloading The File`", quote=True)
-  dl = await m.download(file_name=new_name, progress=progress, progress_args=(msg, "𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳𝙸𝙽𝙶 𝚃𝙾 𝚂𝙴𝚁𝚅𝙴𝚁", "📥 Downloaded"))
+  c_time= time.time()
+  dl = await m.download(
+      file_name=new_name, 
+      progress=progress_for_pyrogram, 
+      progress_args=("Dᴏᴡɴʟᴏᴀᴅɪɴɢ ᴛᴏ sᴇʀᴠᴇʀ", msg, c_time))
   await msg.edit_text(f"**Downloading Completed** \n\n**Location:** `{dl}`")
   await slp(2)
   await msg.edit_text("`Now 📝Renaming The File`")
