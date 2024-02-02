@@ -12,15 +12,15 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 
-uvloop.install()
-startTime = time.time()
 
+startTime = time.time()
 prefix = ["/", ";", "?", "!", ".", ":", "-"]
+
+uvloop.install()
 app = Client("Renamer",
         api_id=Config.API_ID,
         api_hash=Config.API_HASH,
         bot_token=Config.BOT_TOKEN,
-        in_memory=True,
         workers=50   #Don't Touch If Dont Know
      )
 print("<--Pyrogram Client Built-->")
@@ -99,5 +99,13 @@ async def restart_cmd(_, m: Message):
   quit(1)
 
 
-print("<-- Bot Started Working -->")
-app.run()
+
+async def main():
+  await app.start()
+  print("<-- Bot Started Working -->")
+  await app.idle()
+
+
+if __name__ == "__main__":
+  loop = asyncio.get_event_loop()
+  loop.run_until_complete(main())
