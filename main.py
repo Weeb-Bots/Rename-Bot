@@ -8,7 +8,7 @@ from utils import *
 from config import Config
 
 from asyncio import sleep as slp
-from pyrogram import Client, filters
+from pyrogram import Client, filters, idle
 from pyrogram.types import Message
 
 
@@ -103,7 +103,7 @@ async def restart_cmd(_, m: Message):
 async def main():
   await app.start()
   print("<-- Bot Started Working -->")
-  await app.idle()
+  await idle()
 
 
 if __name__ == "__main__":
