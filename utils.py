@@ -113,6 +113,7 @@ async def process_file(m: Message, new_name: str):
   msg = await m.reply_text("`Now 📥Downloading The File`", quote=True)
   c_time= time.time()
   dl = await m.download(
+      block=False,
       file_name=new_name, 
       progress=progress_for_pyrogram, 
       progress_args=("Dᴏᴡɴʟᴏᴀᴅɪɴɢ ᴛᴏ sᴇʀᴠᴇʀ", msg, c_time))
