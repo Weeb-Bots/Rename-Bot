@@ -36,7 +36,6 @@ def hbs(size):
     return f"{size:.2f} {units[i]}"
 
 
-
 async def progress_for_pyrogram(
   current,
   total,
@@ -68,14 +67,13 @@ async def progress_for_pyrogram(
       pass
 
 
-
 async def upload_file(file: str, msg: Message, edit: Message):
   """
   Uploading Files
   """
   name = file.split('/')[-1]
   if msg.from_user.id in captom:
-     cap = captom[msg.from_user.id].format(name)
+     cap = captom[msg.from_user.id].format(name = name)
   else:
      cap = f"**〶** `{name}`\n\n{Config.DF_CAP}"
   thum = f"./downloads/thumb/{msg.from_user.id}.jpeg" if os.path.exists(f"./downloads/thumb/{msg.from_user.id}.jpeg") else "./downloads/thumb/df.jpeg"
@@ -91,23 +89,8 @@ async def upload_file(file: str, msg: Message, edit: Message):
                    progress_args=("𝚄𝙿𝙻𝙾𝙰𝙳𝙸𝙽𝙶 𝚃𝙾 𝚃𝙴𝙻𝙴𝙶𝚁𝙰𝙼",edit,c_time)
           )
   except FloodWait as e:
-    await slp(e.value)
+    await slp(e.value + 2)
     await upload_file(file, msg, edit)
-
-
-async def progress(current, total, msg, name, wh):
-  """
-  Pyrogram Progress
-  """
-  percent = round(current*100/total, 2)
-  ct = hbs(current)
-  tot = hbs(total)
-  text = f"**{name}**\n\n**{wh}:** {ct}\n\n**♻️ Progress:** `{percent}%`\n\n**📀 Total:** `{tot}`"
-  try:
-     await msg.edit_text(text)
-     await slp(2)
-  except:
-     pass
 
 async def process_file(m: Message, new_name: str):
   msg = await m.reply_text("`Now 📥Downloading The File`", quote=True)
