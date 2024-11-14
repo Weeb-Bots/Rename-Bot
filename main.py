@@ -8,7 +8,7 @@ from utils import *
 from config import Config
 
 from asyncio import sleep as slp
-from pyrogram import Client, filters, idle
+from pyrogram import Client, filters
 from pyrogram.types import Message
 
 
@@ -87,8 +87,7 @@ async def setting(_, m: Message):
 
 @app.on_message(filters.incoming & filters.private & filters.command(commands="clear", prefixes=prefix))
 async def clear_cmd(_, m: Message):
-    if m.from_user.id in captom:
-        captom.pop('key2', None)
+    if captom.pop(m.from_user.id, False):
         await m.reply_text("**Cleared Successfully✅**", quote=True)
     await m.reply_text("**You Don't Have Anything**", quote=True)
 
@@ -99,13 +98,5 @@ async def restart_cmd(_, m: Message):
   quit(1)
 
 
-
-async def main():
-  await app.start()
-  print("<-- Bot Started Working -->")
-  await idle()
-
-
 if __name__ == "__main__":
-  loop = asyncio.get_event_loop()
-  loop.run_until_complete(main())
+  app.run()
