@@ -91,24 +91,3 @@ async def upload_file(file: str, msg: Message, edit: Message):
   except FloodWait as e:
     await slp(e.value + 2)
     await upload_file(file, msg, edit)
-
-async def process_file(m: Message, new_name: str):
-  msg = await m.reply_text("`Now 📥Downloading The File`", quote=True)
-  c_time= time.time()
-  dl = await m.download(
-      block=False,
-      file_name=new_name, 
-      progress=progress_for_pyrogram, 
-      progress_args=("Dᴏᴡɴʟᴏᴀᴅɪɴɢ ᴛᴏ sᴇʀᴠᴇʀ", msg, c_time))
-  await msg.edit_text(f"**Downloading Completed** \n\n**Location:** `{dl}`")
-  await slp(2)
-  await msg.edit_text("`Now 📝Renaming The File.`")
-  await slp(2)
-  await msg.edit_text("`Now 📤Uploading The File.`")
-  await upload_file(new_name, msg=m, edit=msg)
-  await msg.delete()
-  try:
-     os.remove(dl)
-  except:
-     pass
-  await slp(2)
