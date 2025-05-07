@@ -12,7 +12,6 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 
-
 startTime = time.time()
 prefix = ["/", ";", "?", "!", ".", ":", "-"]
 
@@ -58,20 +57,36 @@ async def photo_save(_, m: Message):
   await m.reply_text("✅ʏᴏᴜʀ ᴘʜᴏᴛᴏ ʜᴀꜱ ʙᴇᴇɴ ꜱᴀᴠᴇᴅ ᴀꜱ ʏᴏᴜʀ ᴛʜᴜᴍʙɴᴀɪʟ.", quote=True)
 
 
-@app.on_message(filters.incoming & filters.private & filters.reply & filters.command(commands="rename", prefixes=prefix))
-async def reanamer(_, msg: Message):
-    if len(msg.command) < 2:
-        return await msg.reply("Provide a Filename to Rename")
-    new_name = " ".join(msg.command[1:])
-    reply_to = msg.reply_to_message
-    if not str(reply_to.media).split('.')[-1] in "VIDEOAUDIODOCUMENT":
-        return await msg.reply("Provide a Proper File To Rename", quote=True)
-    # type = str(reply_to.media).split('.')[-1].lower() # Later Verion 
-    _dl = os.path.join( "./downloads", new_name)
-
-    asyncio.create_task(process_file(reply_to, _dl))
-    #await process_file(reply_to, _dl)
-    
+@app.on_message(filters.incoming & filters.private & filters.reply & filters.audio & filters.document & filters.document)
+async def reanamer(_, m: Message):
+    n_msg = await m.ask(text="Reply With **New Filename With Extension:**", timeout=60, filters=filters.text, reply_markup=ForceReply(selective=True, placeholder="New Filename+Extension:"))
+    filenaam = f"./downloads/{n_msg.text}"
+    await n_msg.delete()
+    msg = await m.reply_text("`Now 📥Downloading The File`", quote=True)
+    c_time= time.time()
+    try:
+        dl_loc = await m.download(
+              block=False,
+              file_name=filenaam, 
+              progress=progress_for_pyrogram, 
+              progress_args=("Dᴏᴡɴʟᴏᴀᴅɪɴɢ ᴛᴏ sᴇʀᴠᴇʀ", msg, c_time))
+    except:
+        try:
+            os.remove(filenaam)
+        except:
+            pass
+        return await m.reply("Download Failed")
+    await msg.edit_text(f"**Download Completed📥**")
+    await slp(2)
+    await msg.edit_text("**Now 📝Renaming The File.**")
+    await slp(2)
+    await msg.edit_text("**Now Uploading The File.📤**")
+    await upload_file(new_name, msg=m, edit=msg)
+    await msg.delete()
+    try:
+        os.remove(dl)
+    except:
+        pass
 
 
 
